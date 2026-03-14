@@ -24,7 +24,7 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between relative">
           
           {/* 1. ЛІВА ЧАСТИНА (Десктоп меню) */}
-          <div className="flex-1 hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-medium text-dark-brown">
+          <div className="flex-1 hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
             <Link href="#collections" className={navLinkStyles}>
               <span>Колекції</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
@@ -44,8 +44,9 @@ const Header = () => {
 
           {/* 3. ПРАВА ЧАСТИНА (Десктоп меню + Бургер) */}
           <div className="flex-1 flex justify-end items-center">
-            <nav className="hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-medium text-dark-brown">
-              <Link href="/shop" className={navLinkStyles}>
+            <nav className="hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
+              {/* ТУТ БУЛА ПРАВКА: /shop змінено на /bags */}
+              <Link href="/bags" className={navLinkStyles}>
                 <span>Сумки</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
               </Link>
@@ -72,7 +73,7 @@ const Header = () => {
       <div className={`fixed inset-0 z-[100] bg-cream transition-transform duration-500 ease-in-out ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
         <button 
           onClick={toggleMenu}
-          className="absolute top-8 right-6 p-2 text-dark-brown hover:text-burgundy transition-all duration-300 active:scale-90"
+          className="absolute top-12 right-6 p-2 text-dark-brown hover:text-burgundy transition-all duration-300 active:scale-90"
         >
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -80,16 +81,17 @@ const Header = () => {
           </svg>
         </button>
 
-        <div className="flex flex-col items-center h-full pt-12">
-          <div className="w-full flex justify-center mb-16">
+        <div className="flex flex-col h-full pt+10"> 
+          {/* Лого тепер зверху, на рівні хрестика завдяки pt-8 */}
+          <div className="w-full flex justify-center">
              <LogoImage className="h-50" />
           </div>
 
-          <nav className="flex-grow flex flex-col items-center space-y-10 text-base uppercase tracking-[0.3em] font-medium text-dark-brown">
+          <nav className="flex-grow flex flex-col items-center space-y-10 text-base uppercase tracking-[0.3em] font-semibold text-dark-brown">
             {[
               { name: 'Колекції', href: '#collections' },
               { name: 'Ательє', href: '#atelier' },
-              { name: 'Сумки', href: '/shop' },
+              { name: 'Сумки', href: '/bags' }, // ТУТ БУЛА ПРАВКА: /shop змінено на /bags
               { name: 'Як замовити', href: '#order' },
             ].map((item) => (
               <Link 

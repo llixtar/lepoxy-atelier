@@ -57,8 +57,8 @@ const Values = () => {
       </div>
 
       {/* 2. ШИРОКИЙ ТЕКСТОВИЙ БЛОК */}
-      <div className="w-full bg-dark-brown py-16 md:py-24 px-6 flex justify-center items-center">
-        <h2 className="font-playfair text-2xl md:text-4xl lg:text-5xl text-cream font-medium tracking-wide max-w-4xl mx-auto text-center leading-snug md:leading-tight drop-shadow-sm">
+      <div className="w-full bg-dark-brown py-8 md:py-8 px-6 flex justify-center items-center">
+        <h2 className="font-playfair text-xl md:text-4xl lg:text-5xl text-cream font-medium tracking-wide max-w-4xl mx-auto text-center leading-snug md:leading-tight drop-shadow-sm">
           Кожна сумка Lépoxy Atelier унікальна — <br className="hidden md:block" /> 
           <span className="italic text-cream/90">як і жінка, яка її носить.</span>
         </h2>

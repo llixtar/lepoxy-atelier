@@ -87,20 +87,21 @@ const Collections = () => {
   }, [emblaApi]);
 
   return (
-    <section id="collections" className="py-20 md:py-32 bg-cream overflow-hidden">
+    // Зменшили відступи секції для компактності на десктопі
+    <section id="collections" className="scroll-mt-24 md:scroll-mt-25 py-12 md:py-20 bg-cream overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full">
         
-        <div className="flex flex-col items-center text-center mb-8 md:mb-20">
-          <h2 className="font-playfair text-3xl md:text-5xl text-burgundy font-bold mb-6 uppercase tracking-widest">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-12">
+          <h2 className="font-playfair text-3xl md:text-5xl text-burgundy font-bold mb-4 uppercase tracking-widest">
             Колекції
           </h2>
-          <div className="font-playfair text-xl md:text-2xl text-dark-brown max-w-2xl leading-relaxed">
+          <div className="font-playfair text-lg md:text-2xl text-dark-brown max-w-2xl leading-relaxed">
             <p>Настрій можна не лише відчувати — його можна носити.</p>
             <p className="italic text-dark-brown/80">Знайди той, який відчуваєш сьогодні.</p>
           </div>
         </div>
 
-        <div className="md:hidden flex items-center justify-center gap-3 text-dark-brown/50 text-[10px] uppercase tracking-widest font-medium mb-8 animate-pulse">
+        <div className="md:hidden flex items-center justify-center gap-3 text-dark-brown/50 text-[10px] uppercase tracking-widest font-medium mb-6 animate-pulse">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -116,9 +117,10 @@ const Collections = () => {
         onMouseEnter={stopAutoplay}
         onMouseLeave={playAutoplay}
       >
+        {/* Кнопка "Назад" - відцентрована по новій висоті фото (md:top-[180px]) */}
         <button 
           onClick={scrollPrev}
-          className="hidden md:flex absolute left-8 top-[35%] -translate-y-1/2 z-20 w-14 h-14 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
+          className="hidden md:flex absolute left-8 md:top-[180px] -translate-y-1/2 z-20 w-12 h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6"/>
@@ -130,23 +132,26 @@ const Collections = () => {
             {collectionsData.map((collection, index) => (
               <div 
                 key={index} 
-                className="flex-[0_0_80vw] sm:flex-[0_0_320px] md:flex-[0_0_400px] min-w-0 mr-8 md:mr-12 group flex flex-col items-center text-center"
+                // Змінили ширину: flex-[0_0_46vw] для мобілки (щоб влазило 2), для десктопа 320-360px
+                className="flex-[0_0_46vw] sm:flex-[0_0_280px] md:flex-[0_0_320px] lg:flex-[0_0_360px] min-w-0 mr-4 md:mr-8 group flex flex-col items-center text-center"
               >
-                <div className="relative w-full h-[350px] md:h-[450px] mb-8 overflow-hidden bg-transparent cursor-grab active:cursor-grabbing">
+                {/* Зменшили висоту картинок: h-[220px] для мобілки, h-[360px] для десктопа */}
+                <div className="relative w-full h-[220px] sm:h-[300px] md:h-[360px] mb-4 md:mb-6 overflow-hidden bg-transparent cursor-grab active:cursor-grabbing">
                   <Image 
                     src={collection.image} 
                     alt={collection.title}
                     fill
-                    sizes="(max-width: 768px) 80vw, 400px"
+                    sizes="(max-width: 768px) 46vw, 360px"
                     className="object-contain transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
 
-                <div className="flex flex-col items-center px-2">
-                  <h3 className="font-playfair text-2xl md:text-3xl font-bold text-burgundy mb-4 tracking-wider uppercase">
+                <div className="flex flex-col items-center px-1 md:px-2">
+                  <h3 className="font-playfair text-lg md:text-2xl font-bold text-burgundy mb-2 md:mb-4 tracking-wider uppercase">
                     {collection.title}
                   </h3>
-                  <p className="font-sans text-[13px] md:text-base text-dark-brown/80 leading-relaxed font-medium max-w-[320px]">
+                  {/* Зменшили текст і ширину опису для мобілки (text-[11px] max-w-[160px]) */}
+                  <p className="font-sans text-[11px] md:text-sm text-dark-brown/80 leading-relaxed font-medium max-w-[160px] sm:max-w-[250px] md:max-w-[300px]">
                     {collection.description}
                   </p>
                 </div>
@@ -155,9 +160,10 @@ const Collections = () => {
           </div>
         </div>
 
+        {/* Кнопка "Вперед" */}
         <button 
           onClick={scrollNext}
-          className="hidden md:flex absolute right-8 top-[35%] -translate-y-1/2 z-20 w-14 h-14 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
+          className="hidden md:flex absolute right-8 md:top-[180px] -translate-y-1/2 z-20 w-12 h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6"/>

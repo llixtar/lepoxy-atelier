@@ -44,6 +44,10 @@
   100% { box-shadow: 0 0 0 0 rgba(122, 27, 44, 0); }
 }
 
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 150%; } /* Рух триває від самого початку до самого кінця */
+}
 .animate-firefly {
   position: absolute;
   width: 5px;
