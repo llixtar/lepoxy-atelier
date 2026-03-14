@@ -45,7 +45,7 @@ const Hero = () => {
               {/* Кнопка з ефектом алмазного блиску та підйому */}
               <div className="mt-4 md:mt-4">
                 <Link
-                  href="#collections"
+                  href="/#collections"
                   className="
     relative overflow-hidden inline-block bg-burgundy text-cream px-6 py-3 md:px-10 md:py-4 
     uppercase text-[10px] md:text-[12px] tracking-[0.2em] font-medium 
