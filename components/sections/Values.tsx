@@ -4,30 +4,31 @@ const valuesData = [
   {
     title: 'Неповторний дизайн',
     description: 'Кожна сумка - унікальна композиція, яка ніколи не повторюється.',
-    icon: '/icons/value-icon.svg'
+    icon: '/icons/value-icon.png' // Виправив розширення на .png
   },
   {
     title: 'Ручна робота',
     description: 'Від першого ескізу до готового виробу — усе створюється вручну у Львові.',
-    icon: '/icons/value-icon.svg'
+    icon: '/icons/value-icon.png' // Виправив розширення на .png
   },
   {
     title: 'Створено в Україні',
     description: 'Бренд народжується в Україні — з локальних матеріалів, майстерності та любові до деталей.',
-    icon: '/icons/value-icon.svg'
+    icon: '/icons/value-icon.png' // Виправив розширення на .png
   },
   {
     title: 'Преміум матеріали',
     description: 'Натуральна шкіра, якісна фурнітура та міцна епоксидна смола для довговічного результату.',
-    icon: '/icons/value-icon.svg'
+    icon: '/icons/value-icon.png' // Виправив розширення на .png
   }
 ];
 
 const Values = () => {
   return (
-    <section className="w-full flex flex-col bg-cream/50">
+    // ПРИБРАВ /50 з bg-cream, щоб колір з ТЗ працював як треба
+    <section className="w-full flex flex-col bg-cream">
       
-      {/* 1. БЛОК З ІКОНКАМИ (Обмежений по ширині контейнером) */}
+      {/* 1. БЛОК З ІКОНКАМИ */}
       <div className="py-20 md:py-32 max-w-[1440px] mx-auto px-6 md:px-12 w-full">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 md:gap-12">
           
@@ -55,7 +56,7 @@ const Values = () => {
         </div>
       </div>
 
-      {/* 2. ШИРОКИЙ ТЕКСТОВИЙ БЛОК (На 100% ширини екрана) */}
+      {/* 2. ШИРОКИЙ ТЕКСТОВИЙ БЛОК */}
       <div className="w-full bg-dark-brown py-16 md:py-24 px-6 flex justify-center items-center">
         <h2 className="font-playfair text-2xl md:text-4xl lg:text-5xl text-cream font-medium tracking-wide max-w-4xl mx-auto text-center leading-snug md:leading-tight drop-shadow-sm">
           Кожна сумка Lépoxy Atelier унікальна — <br className="hidden md:block" /> 
