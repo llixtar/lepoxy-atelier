@@ -9,47 +9,47 @@ const collectionsData = [
   {
     title: `Спокій`,
     description: `Коли хочеться зупинитись, видихнути і просто бути. Ніжні квіти жасмину, застиглі в моменті — як нагадування, що все буде добре.`,
-    image: `/images/collections/spokiy.jpg`
+    image: `/images/collections/spokiy.png`
   },
   {
     title: `Тиша`,
     description: `Для моментів, коли не потрібні слова. Три стебла лаванди на білому — як чистий аркуш, на якому ти пишеш свою історію.`,
-    image: `/images/collections/tysha.jpg`
+    image: `/images/collections/tysha.png`
   },
   {
     title: `Пристрасть`,
     description: `Те почуття, коли серце б'ється швидше. Глибока винна смола з трояндами всередині — як емоція, яку неможливо приховати.`,
-    image: `/images/collections/prystrast.jpg`
+    image: `/images/collections/prystrast.png`
   },
   {
     title: `Свобода`,
     description: `Хвилі океану та мерехтіння піску, застиглі в смолі — як нагадування про ту мить свободи, яку ти завжди носиш із собою.`,
-    image: `/images/collections/svoboda.jpg`
+    image: `/images/collections/svoboda.png`
   },
   {
     title: `Сила`,
     description: `Та внутрішня енергія, яка прокидається в найтемніший момент. Як магма — тихо горить всередині, поки не прорветься назовні.`,
-    image: `/images/collections/syla.jpg`
+    image: `/images/collections/syla.png`
   },
   {
     title: `Ніжність`,
     description: `Коли хтось обіймає тебе без слів і стає легше дихати. Рожеві стебла на світлій смолі — як дотик людини, яка розуміє.`,
-    image: `/images/collections/nizhnist.jpg`
+    image: `/images/collections/nizhnist.png`
   },
   {
     title: `Легкість`,
     description: `Той рідкісний день, коли нічого не тисне. Ти просто йдеш, посміхаєшся, і все навколо — рожево-лавандове, як в дитинстві.`,
-    image: `/images/collections/lehkist.jpg`
+    image: `/images/collections/lehkist.png`
   },
   {
     title: `Тепло`,
     description: `Почуття дому, мамин голос у телефоні, кава вранці на сонці. Золоті колоски — як останні дні літа, які хочеться зупинити.`,
-    image: `/images/collections/teplo.jpg`
+    image: `/images/collections/teplo.png`
   },
   {
     title: `Щастя`,
     description: `Життя не буває одного кольору. Найкращі моменти — коли все змішується і стає цілим.`,
-    image: `/images/collections/shchastya.jpg`
+    image: `/images/collections/shchastya.png`
   }
 ];
 
