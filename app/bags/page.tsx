@@ -8,22 +8,20 @@ export default function BagsPage() {
   const [selectedBag, setSelectedBag] = useState<Bag | null>(null);
 
   return (
-    // Збільшено pt-28 (мобілка) та pt-48 (десктоп), щоб хедер не перекривав заголовок!
-    // Зменшено pb-20 до pb-12/16 для компактності
     <div className="bg-cream min-h-screen pt-28 md:pt-48 pb-12 md:pb-16 flex flex-col items-center">
       <div className="max-w-[1440px] w-full mx-auto px-4 md:px-12">
         
-        {/* ЗАГОЛОВОК (Зменшено mb та шрифти) */}
+        {/* ЗАГОЛОВОК */}
         <header className="text-center mb-10 md:mb-12">
           <h1 className="font-playfair text-3xl md:text-5xl text-burgundy font-bold mb-3 md:mb-4 uppercase tracking-widest drop-shadow-sm">
             В наявності
           </h1>
-          <p className="text-dark-brown/70 max-w-xl mx-auto font-sans text-sm md:text-base">
-            Кожна сумка — це ручна робота в єдиному екземплярі. Оберіть ту, що відгукується вашому серцю.
+          <p className="text-dark-brown/70 max-w-xl mx-auto font-sans text-sm md:text-base font-medium leading-relaxed">
+            Кожна сумка — це ручна робота в єдиному екземплярі. <br className="hidden md:block" /> Оберіть ту, що відгукується вашому серцю.
           </p>
         </header>
 
-        {/* СІТКА (Тепер 2 колонки на мобілці, менші відступи gap-3/gap-8) */}
+        {/* СІТКА (2 колонки мобілка, 4 десктоп) */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8">
           {AVAILABLE_BAGS.map((bag) => (
             <div 
@@ -31,18 +29,20 @@ export default function BagsPage() {
               className="group cursor-pointer flex flex-col"
               onClick={() => setSelectedBag(bag)}
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-white shadow-sm transition-all duration-500 group-hover:shadow-lg group-hover:-translate-y-1 border border-dark-brown/5">
+              {/* ФОТО З ЕФЕКТОМ МАСШТАБУВАННЯ (object-contain, scale-75 -> scale-90) */}
+              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-white shadow-sm transition-all duration-500 group-hover:shadow-lg group-hover:-translate-y-1 border border-dark-brown/5 flex items-center justify-center">
                 <Image 
                   src={bag.images[0]} 
                   alt={bag.name} 
                   fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-110" 
+                  // object-contain гарантує видимість всієї сумки. scale-75 -> scale-90.
+                  className="object-contain transition-transform duration-700 scale-90 group-hover:scale-99" 
                 />
-                <div className="absolute inset-0 bg-burgundy/0 group-hover:bg-burgundy/5 transition-colors duration-500" />
+                {/* Прибрано burgundy оверлей, бо він заповнював весь білий квадрат. Тепер фокус суто на сумці. */}
               </div>
               
-              {/* ІНФОРМАЦІЯ ПІД СУМКОЮ (Ближче до фото, менші шрифти) */}
-              <div className="mt-3 md:mt-4 flex justify-between items-start px-1">
+              {/* ІНФОРМАЦІЯ ПІД СУМКОЮ */}
+              <div className="mt-3 md:mt-4 flex justify-between items-start px-1 relative z-10 bg-cream pt-1">
                 <div className="flex flex-col">
                   <h3 className="font-playfair text-sm md:text-lg font-bold text-dark-brown group-hover:text-burgundy transition-colors uppercase leading-tight">
                     {bag.name}
