@@ -5,21 +5,37 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 
-const availableBags = [
-  { id: 1, name: 'Сумка 1 (Assymetry)', price: '4 300 ₴', image: '/images/available/bag1_.jpg' },
-  // { id: 2, name: 'Сумка 2 (Minimalism)', price: '5 200 ₴', image: '/images/available/bag2.jpg' },
-  // { id: 3, name: 'Сумка 3 (Asymmetry)', price: '4 800 ₴', image: '/images/available/bag3.jpg' },
-  // { id: 4, name: 'Сумка 4 (Old School)', price: '6 100 ₴', image: '/images/available/bag4.jpg' },
-  // { id: 5, name: 'Сумка 5 (Classic)', price: '4 300 ₴', image: '/images/available/bag5.jpg' },
-  // { id: 6, name: 'Сумка 6 (Minimalism)', price: '5 500 ₴', image: '/images/available/bag6.jpg' }
-];
-
 const AvailableBags = () => {
+  // Стейт для сумок з бази
+  const [bags, setBags] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   // Вимкнули loop, щоб при малій кількості карток вони не дублювалися
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
 
   // Стейт для перевірки, чи потрібен скрол
   const [isScrollable, setIsScrollable] = useState(false);
+
+  // Завантажуємо сумки з API
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const res = await fetch('/api/bags');
+        if (res.ok) {
+          const data = await res.json();
+          // Залишаємо тільки ті, що в наявності
+          const available = data.filter((bag: any) => bag.isAvailable === true);
+          setBags(available);
+        }
+      } catch (error) {
+        console.error('Помилка завантаження сумок:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBags();
+  }, []);
 
   // Слідкуємо за розміром екрана та кількістю карток
   useEffect(() => {
@@ -33,7 +49,7 @@ const AvailableBags = () => {
     checkScrollable(); // Перевіряємо при старті
     emblaApi.on('reInit', checkScrollable); // Перевіряємо при зміні даних
     emblaApi.on('resize', checkScrollable); // Перевіряємо при повороті екрана/зміні вікна
-  }, [emblaApi]);
+  }, [emblaApi, bags]); // Додали bags у залежності, щоб перевіряти скрол після завантаження даних
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -64,7 +80,7 @@ const AvailableBags = () => {
       {/* ОБГОРТКА ГАЛЕРЕЇ */}
       <div className="relative w-full group/gallery max-w-[1920px] mx-auto px-4 md:px-12">
 
-        {/* Стрілка Вліво (Показуємо тільки якщо є куди гортати) */}
+        {/* Стрілка Вліво */}
         {isScrollable && (
           <button
             onClick={scrollPrev}
@@ -76,57 +92,75 @@ const AvailableBags = () => {
 
         {/* EMBLA CAROUSEL */}
         <div className="overflow-hidden w-full" ref={emblaRef}>
-          {/* Динамічний клас: якщо скролу немає, центруємо (justify-center) */}
-          <div className={`flex touch-pan-y py-2 md:py-4 ${!isScrollable ? 'justify-center' : ''}`}>
-
-            {availableBags.map((bag) => (
-              <div
-                key={bag.id}
-                className="flex-[0_0_80%] sm:flex-[0_0_45%] lg:flex-[0_0_28%] xl:flex-[0_0_24%] min-w-0 pr-4 md:pr-6 group"
-              >
-                <div className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-dark-brown/5 hover:border-burgundy/30 h-full">
-
-                  {/* ФОТО БЕЗ ОБРІЗАННЯ КРАЇВ */}
-                  <div className="relative w-full aspect-[4/5] overflow-hidden bg-transparent flex items-center justify-center">
-                    <Image
-                      src={bag.image}
-                      alt={bag.name}
-                      fill
-                      className="
-      object-contain         /* ЗМІНЕНО: тепер фото видно ПОВНІСТЮ */
-      transition-transform duration-700 
-      scale-90               /* Твоє початкове віддалення */
-      group-hover:scale-99    /* Твоє наближення при наведенні */
-    "
-                    />
-                    <div className="absolute top-3 left-3 z-10 bg-cream/95 text-burgundy text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm shadow-sm">
-                      В наявності
-                    </div>
-                  </div>
-
-                  {/* ІНФОРМАЦІЯ */}
-                  <div className="p-4 md:p-5 flex flex-col flex-grow relative z-10 bg-white">
-                    <h3 className="font-playfair text-lg md:text-xl font-bold text-dark-brown mb-1 md:mb-2">{bag.name}</h3>
-                    <p className="font-sans text-base md:text-lg text-burgundy font-semibold mb-4">{bag.price}</p>
-
-                    <a
-                      href={`https://t.me/${telegramUsername}?text=${encodeURIComponent(`Доброго дня! Хочу придбати сумку з наявності:\nМодель: ${bag.name}\nЦіна: ${bag.price}`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-auto w-full py-2.5 md:py-3 border border-burgundy text-burgundy text-center uppercase text-[10px] md:text-[11px] font-bold tracking-[0.15em] transition-all duration-300 hover:bg-burgundy hover:text-cream active:scale-95 rounded-sm"
-                    >
-                      Купити зараз
-                    </a>
-                  </div>
-
-                </div>
+          {isLoading ? (
+            // Скелетон або індикатор завантаження
+            <div className="flex justify-center py-12">
+              <div className="text-burgundy animate-pulse font-semibold tracking-widest uppercase text-sm">
+                Завантаження сумок...
               </div>
-            ))}
+            </div>
+          ) : bags.length === 0 ? (
+            // Повідомлення, якщо сумок немає
+            <div className="flex justify-center py-12">
+              <div className="text-dark-brown/60 font-medium text-center">
+                Наразі всі сумки з наявності розпродані.
+              </div>
+            </div>
+          ) : (
+            // Динамічний клас: якщо скролу немає, центруємо (justify-center)
+            <div className={`flex touch-pan-y py-2 md:py-4 ${!isScrollable ? 'justify-center' : ''}`}>
+              {bags.map((bag) => (
+                <div
+                  key={bag.id}
+                  className="flex-[0_0_80%] sm:flex-[0_0_45%] lg:flex-[0_0_28%] xl:flex-[0_0_24%] min-w-0 pr-4 md:pr-6 group"
+                >
+                  <div className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-dark-brown/5 hover:border-burgundy/30 h-full">
 
-          </div>
+                    {/* ФОТО БЕЗ ОБРІЗАННЯ КРАЇВ */}
+                    <div className="relative w-full aspect-[4/5] overflow-hidden bg-transparent flex items-center justify-center">
+                      {bag.images && bag.images.length > 0 ? (
+                        <Image
+                          src={bag.images[0]}
+                          alt={bag.name}
+                          fill
+                          className="object-contain transition-transform duration-700 scale-90 group-hover:scale-99"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                          Фото відсутнє
+                        </div>
+                      )}
+                      
+                      <div className="absolute top-3 left-3 z-10 bg-cream/95 text-burgundy text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm shadow-sm">
+                        В наявності
+                      </div>
+                    </div>
+
+                    {/* ІНФОРМАЦІЯ */}
+                    <div className="p-4 md:p-5 flex flex-col flex-grow relative z-10 bg-white">
+                      <h3 className="font-playfair text-lg md:text-xl font-bold text-dark-brown mb-1 md:mb-2">{bag.name}</h3>
+                      <p className="font-sans text-base md:text-lg text-burgundy font-semibold mb-4">
+                        {bag.price} ₴
+                      </p>
+
+                      <a
+                        href={`https://t.me/${telegramUsername}?text=${encodeURIComponent(`Доброго дня! Хочу придбати сумку з наявності:\nМодель: ${bag.name}\nЦіна: ${bag.price} ₴`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-auto w-full py-2.5 md:py-3 border border-burgundy text-burgundy text-center uppercase text-[10px] md:text-[11px] font-bold tracking-[0.15em] transition-all duration-300 hover:bg-burgundy hover:text-cream active:scale-95 rounded-sm"
+                      >
+                        Купити зараз
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Стрілка Вправо (Показуємо тільки якщо є куди гортати) */}
+        {/* Стрілка Вправо */}
         {isScrollable && (
           <button
             onClick={scrollNext}

@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+// Наші ролі доступу
+enum Role {
+  admin
+  client
+}
+
+// Таблиця профілів, на якій тримається захист
+model Profile {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Тут буде зберігатися зашифрований хеш, а не реальний пароль
+  role      Role     @default(client)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Таблиця для наших сумок
+model Bag {
+  id          String   @id @default(cuid())
+  name        String
+  price       String
+  model       String
+  dimensions  String
+  collection  String
+  color       String
+  description String
+  images      String[] // Масив посилань на фотографії
+  isAvailable Boolean  @default(true) // Щоб легко приховувати продані сумки
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Таблиця для відгуків (на майбутнє)
+model Review {
+  id        String   @id @default(cuid())
+  clientName String
+  text      String
+  imageUrl  String?  // Фото може не бути, тому стоїть знак питання
+  isApproved Boolean @default(false) // Відгук з'явиться на сайті тільки після твого схвалення
+  createdAt DateTime @default(now())
+}

@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // ДОДАНО: для переходу в адмінку
 import { PRIVACY_POLICY, PUBLIC_OFFER } from '@/constants/legal';
 
-// Компонент модального вікна
+// Компонент модального вікна (залишається без змін)
 const Modal = ({ isOpen, onClose, title, children }: { isOpen: boolean, onClose: () => void, title: string, children: React.ReactNode }) => {
   if (!isOpen) return null;
   return (
@@ -30,14 +31,10 @@ const Footer = () => {
     <footer className="bg-burgundy text-cream pt-20 pb-10">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full">
         
-        {/* Додав items-start, щоб підняти все до однієї лінії */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 mb-20 items-start">
           
           {/* 1. ЛОГОТИП */}
           <div className="flex flex-col items-center text-center">
-            {/* РОЗМІР: міняй w-64 та h-32 нижче (Tailwind кроки по 4px, w-64 = 256px)
-               ВИРІВНЮВАННЯ: -mt-6 піднімає логотип вгору 
-            */}
             <div className="relative w-80 h-40 mb-4 -mt-13">
               <Image 
                 src="/logo/logo_transparent_beige.svg" 
@@ -86,24 +83,27 @@ const Footer = () => {
             <button onClick={() => setActiveModal('privacy')} className="hover:opacity-100">Політика конфіденційності</button>
             <button onClick={() => setActiveModal('offer')} className="hover:opacity-100">Публічна оферта</button>
           </div>
-          <div>© {currentYear} Lépoxy Atelier. Всі права захищені.</div>
+          
+          <div className="relative">
+            © {currentYear} Lépoxy Atelier. Всі права захищені.
+            {/* СЕКРЕТНИЙ ВХІД: Крапка, яку майже не видно, але вона веде в адмінку */}
+            <Link 
+              href="/admin" 
+              className="ml-1 opacity-10 hover:opacity-100 transition-opacity cursor-default"
+              title="Admin access"
+            >
+              .
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* МОДАЛКИ */}
-      <Modal 
-        isOpen={activeModal === 'privacy'} 
-        onClose={() => setActiveModal(null)} 
-        title="Політика конфіденційності"
-      >
+      {/* МОДАЛКИ (залишаються без змін) */}
+      <Modal isOpen={activeModal === 'privacy'} onClose={() => setActiveModal(null)} title="Політика конфіденційності">
         {PRIVACY_POLICY}
       </Modal>
 
-      <Modal 
-        isOpen={activeModal === 'offer'} 
-        onClose={() => setActiveModal(null)} 
-        title="Публічна оферта"
-      >
+      <Modal isOpen={activeModal === 'offer'} onClose={() => setActiveModal(null)} title="Публічна оферта">
         {PUBLIC_OFFER}
       </Modal>
     </footer>

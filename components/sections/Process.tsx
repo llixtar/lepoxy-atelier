@@ -10,25 +10,25 @@ const processSteps = [
     step: '01',
     title: 'Узгодження дизайну',
     description: 'Обираємо з клієнтом модель сумки, колір шкіри та композицію дизайну.',
-    image: '/images/process/design.jpg'
+    image: '/images/process/design.webp'
   },
   {
     step: '02',
     title: 'Створення епоксидних деталей',
     description: 'Квіти та декоративні елементи заливаються епоксидною смолою.',
-    image: '/images/process/epoxy.jpg'
+    image: '/images/process/epoxy.webp'
   },
   {
     step: '03',
     title: 'Підготовка шкіри',
     description: 'Натуральна шкіра розкроюється та готується до створення сумки.',
-    image: '/images/process/leather.jpg'
+    image: '/images/process/leather.webp'
   },
   {
     step: '04',
     title: 'Фінальна збірка',
     description: 'На цьому етапі всі частини збираються, встановлюється фурнітура та прикріплюються ручки.',
-    image: '/images/process/assembly.jpg'
+    image: '/images/process/assembly.webp'
   },
   {
     step: '05',
@@ -73,7 +73,7 @@ const Process = () => {
 
   return (
     // Змінено фон на bg-cream та додано scroll-mt для навігації
-    <section id="process" className="scroll-mt-28 md:scroll-mt-44 py-12 md:py-20 bg-cream overflow-hidden relative">
+    <section id="process" className="scroll-mt-28 md:scroll-mt-28 py-12 md:py-20 bg-cream overflow-hidden relative">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full">
         
         {/* ЗАГОЛОВОК СЕКЦІЇ (Компактніший mb-10) */}

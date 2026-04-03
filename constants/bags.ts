@@ -21,9 +21,9 @@ export const AVAILABLE_BAGS: Bag[] = [
     color: 'Чорна',
     description: 'Глибока, містична та абсолютно унікальна, а сам малюнок нагадує нічне зоряне небо. Щільна натуральна шкіра глибокого чорного кольору, срібна фурнітура.',
     images: [
-      '/images/available/bag1_.jpg',
-      '/images/available/bag1_alt1_.jpg',
-      '/images/available/bag1_alt2_.jpg',
+      '/images/available/bag1_.webp',
+      '/images/available/bag1_alt1_.webp',
+      '/images/available/bag1_alt2_.webp',
     ]
   },
   // {

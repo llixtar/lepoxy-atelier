@@ -29,7 +29,7 @@ const Header = () => {
               <span>Колекції</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
             </Link>
-            <Link href="/#atelier" className={navLinkStyles}>
+            <Link href="/#process" className={navLinkStyles}>
               <span>Ательє</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
             </Link>
