@@ -29,16 +29,16 @@ const Order = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedMessenger, setSelectedMessenger] = useState<'telegram' | 'instagram' | null>(null);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  
+
   const [wantsToReturn, setWantsToReturn] = useState(false);
 
   const isFormComplete = selectedModel && selectedColor && selectedMood && selectedMessenger;
 
-  const telegramUsername = "llixtar"; 
-  const instagramUsername = "llixtar"; 
+  const telegramUsername = "llixtar";
+  const instagramUsername = "lepoxy.atelier";
 
   const orderText = `Доброго дня, хочу замовити таку сумку:\nМодель: ${selectedModel}\nКолір шкіри: ${selectedColor}\nДизайн епоксидних вставок: ${selectedMood}`;
 
@@ -49,7 +49,7 @@ const Order = () => {
           setWantsToReturn(false);
         }
       },
-      { threshold: 0.1 } 
+      { threshold: 0.1 }
     );
 
     const orderSection = document.getElementById('order');
@@ -78,14 +78,14 @@ const Order = () => {
   const handleCopyText = () => {
     navigator.clipboard.writeText(orderText);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000); 
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   return (
     <>
       <section id="order" className="scroll-mt-28 md:scroll-mt-14 py-12 md:py-32 bg-cream relative">
         <div className="max-w-[1000px] mx-auto px-4 md:px-12 w-full">
-          
+
           {/* ЗАГОЛОВОК */}
           <div className="flex flex-col items-center text-center mb-10 md:mb-16">
             <h2 className="font-playfair text-2xl md:text-5xl text-burgundy font-bold mb-4 md:mb-6 uppercase tracking-[0.15em] drop-shadow-sm">
@@ -98,37 +98,36 @@ const Order = () => {
           </div>
 
           <div className="space-y-10 md:space-y-16">
-            
+
             {/* КРОК 1: МОДЕЛЬ */}
             <div>
               <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                 <span className="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-burgundy text-cream font-bold text-xs md:text-sm shadow-sm">1</span>
                 <h3 className="font-playfair text-lg md:text-2xl text-dark-brown font-semibold uppercase tracking-widest">Обери модель</h3>
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 {modelsData.map((model) => (
                   <button
                     key={model.id}
                     onClick={() => setSelectedModel(model.id)}
-                    className={`group relative flex flex-col items-center p-2 md:p-4 bg-white rounded-xl border-2 transition-all duration-300 ${
-                      selectedModel === model.id 
-                        ? 'border-burgundy shadow-lg scale-105' 
+                    className={`group relative flex flex-col items-center p-2 md:p-4 bg-white rounded-xl border-2 transition-all duration-300 ${selectedModel === model.id
+                        ? 'border-burgundy shadow-lg scale-105'
                         : 'border-transparent shadow-sm hover:shadow-md hover:border-warm-beige'
-                    }`}
+                      }`}
                   >
                     <div className="relative w-full aspect-square mb-2 md:mb-4 overflow-hidden">
-                      <Image 
-                        src={model.img} 
-                        alt={model.name} 
-                        fill 
+                      <Image
+                        src={model.img}
+                        alt={model.name}
+                        fill
                         className="object-contain transition-transform duration-500 group-hover:scale-110 p-2 md:p-0"
                       />
                     </div>
                     <span className={`font-sans text-[11px] md:text-base font-medium transition-colors ${selectedModel === model.id ? 'text-burgundy' : 'text-dark-brown group-hover:text-burgundy/80'}`}>
                       {model.name}
                     </span>
-                    
+
                     {selectedModel === model.id && (
                       <div className="absolute top-2 right-2 md:top-3 md:right-3 text-burgundy animate-in zoom-in duration-200">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-6 md:h-6"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -153,12 +152,11 @@ const Order = () => {
                     onClick={() => setSelectedColor(color.id)}
                     className="flex flex-col items-center gap-2 md:gap-3 group transition-transform duration-300 hover:scale-110"
                   >
-                    <div 
-                      className={`w-10 h-10 md:w-16 md:h-16 rounded-full transition-all duration-300 ${
-                        selectedColor === color.id 
+                    <div
+                      className={`w-10 h-10 md:w-16 md:h-16 rounded-full transition-all duration-300 ${selectedColor === color.id
                           ? 'ring-2 md:ring-4 ring-offset-2 md:ring-offset-4 ring-burgundy'
                           : 'ring-1 ring-offset-1 md:ring-offset-2 ring-transparent group-hover:ring-warm-beige'
-                      }`}
+                        }`}
                       style={{ backgroundColor: color.hex, borderColor: color.border, borderWidth: '1px' }}
                     >
                       {selectedColor === color.id && (
@@ -183,9 +181,9 @@ const Order = () => {
                   <span className="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-burgundy text-cream font-bold text-xs md:text-sm shadow-sm">3</span>
                   <h3 className="font-playfair text-lg md:text-2xl text-dark-brown font-semibold uppercase tracking-widest">Обери настрій</h3>
                 </div>
-                
-                <a 
-                  href="#collections" 
+
+                <a
+                  href="#collections"
                   onClick={() => setWantsToReturn(true)}
                   className="text-[10px] md:text-sm font-sans text-burgundy/80 hover:text-burgundy underline underline-offset-4 transition-colors ml-9 md:ml-0"
                 >
@@ -198,11 +196,10 @@ const Order = () => {
                   <button
                     key={mood}
                     onClick={() => setSelectedMood(mood)}
-                    className={`px-3 py-1.5 rounded-full border border-burgundy/20 font-sans text-[11px] transition-all duration-300 hover:scale-105 ${
-                      selectedMood === mood 
-                        ? 'bg-burgundy text-cream shadow-md border-burgundy' 
+                    className={`px-3 py-1.5 rounded-full border border-burgundy/20 font-sans text-[11px] transition-all duration-300 hover:scale-105 ${selectedMood === mood
+                        ? 'bg-burgundy text-cream shadow-md border-burgundy'
                         : 'bg-transparent text-dark-brown hover:bg-warm-beige'
-                    }`}
+                      }`}
                   >
                     {mood} {selectedMood === mood && '✓'}
                   </button>
@@ -215,11 +212,10 @@ const Order = () => {
                     <button
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
-                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${
-                        selectedMood === mood 
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy' 
+                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
+                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
                           : 'bg-transparent text-dark-brown hover:bg-warm-beige'
-                      }`}
+                        }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
                     </button>
@@ -230,11 +226,10 @@ const Order = () => {
                     <button
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
-                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${
-                        selectedMood === mood 
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy' 
+                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
+                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
                           : 'bg-transparent text-dark-brown hover:bg-warm-beige'
-                      }`}
+                        }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
                     </button>
@@ -245,11 +240,10 @@ const Order = () => {
                     <button
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
-                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${
-                        selectedMood === mood 
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy' 
+                      className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
+                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
                           : 'bg-transparent text-dark-brown hover:bg-warm-beige'
-                      }`}
+                        }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
                     </button>
@@ -264,27 +258,25 @@ const Order = () => {
 
             {/* КРОК 4: ВИБІР МЕСЕНДЖЕРА */}
             <div>
-               <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+              <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                 <span className="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-burgundy text-cream font-bold text-xs md:text-sm shadow-sm">4</span>
                 <h3 className="font-playfair text-lg md:text-2xl text-dark-brown font-semibold uppercase tracking-widest">Де зручніше оформити?</h3>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                <button 
+                <button
                   onClick={() => setSelectedMessenger('telegram')}
-                  className={`flex-1 flex items-center justify-center gap-2 md:gap-3 py-3 md:py-4 rounded-xl border-2 transition-all duration-300 hover:scale-[1.02] ${
-                    selectedMessenger === 'telegram' ? 'border-burgundy bg-burgundy/5 text-burgundy shadow-md' : 'border-dark-brown/10 text-dark-brown/70 hover:border-warm-beige'
-                  }`}
+                  className={`flex-1 flex items-center justify-center gap-2 md:gap-3 py-3 md:py-4 rounded-xl border-2 transition-all duration-300 hover:scale-[1.02] ${selectedMessenger === 'telegram' ? 'border-burgundy bg-burgundy/5 text-burgundy shadow-md' : 'border-dark-brown/10 text-dark-brown/70 hover:border-warm-beige'
+                    }`}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-6 md:h-6"><path d="M22 2L11 13"></path><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                   <span className="font-semibold tracking-wide text-sm md:text-base">Telegram</span>
                 </button>
 
-                <button 
+                <button
                   onClick={() => setSelectedMessenger('instagram')}
-                  className={`flex-1 flex items-center justify-center gap-2 md:gap-3 py-3 md:py-4 rounded-xl border-2 transition-all duration-300 hover:scale-[1.02] ${
-                    selectedMessenger === 'instagram' ? 'border-burgundy bg-burgundy/5 text-burgundy shadow-md' : 'border-dark-brown/10 text-dark-brown/70 hover:border-warm-beige'
-                  }`}
+                  className={`flex-1 flex items-center justify-center gap-2 md:gap-3 py-3 md:py-4 rounded-xl border-2 transition-all duration-300 hover:scale-[1.02] ${selectedMessenger === 'instagram' ? 'border-burgundy bg-burgundy/5 text-burgundy shadow-md' : 'border-dark-brown/10 text-dark-brown/70 hover:border-warm-beige'
+                    }`}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-6 md:h-6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                   <span className="font-semibold tracking-wide text-sm md:text-base">Instagram</span>
@@ -296,27 +288,26 @@ const Order = () => {
 
           {/* ФІНАЛЬНИЙ БЛОК: КНОПКИ (Без лінії і з меншими відступами) */}
           <div className="mt-6 flex flex-col items-center">
-            
+
             {!isFormComplete && (
               <p className="text-xs md:text-sm text-burgundy/70 mb-3 md:mb-4 animate-pulse text-center">
                 Пройдіть усі 4 кроки, щоб активувати замовлення
               </p>
             )}
 
-            <button 
+            <button
               onClick={handleOrderSubmit}
               disabled={!isFormComplete}
-              className={`flex items-center justify-center w-full max-w-md py-3 md:py-4 uppercase text-[11px] md:text-[13px] tracking-[0.2em] font-bold transition-all duration-300 shadow-lg ${
-                isFormComplete 
-                  ? 'bg-burgundy text-cream hover:bg-dark-brown hover:scale-[1.02] active:scale-95 cursor-pointer' 
+              className={`flex items-center justify-center w-full max-w-md py-3 md:py-4 uppercase text-[11px] md:text-[13px] tracking-[0.2em] font-bold transition-all duration-300 shadow-lg ${isFormComplete
+                  ? 'bg-burgundy text-cream hover:bg-dark-brown hover:scale-[1.02] active:scale-95 cursor-pointer'
                   : 'bg-dark-brown/10 text-dark-brown/40 cursor-not-allowed'
-              }`}
+                }`}
             >
               Перейти до замовлення
             </button>
 
             {/* Замінено на <Link> для переходу на сторінку /bags */}
-            <Link 
+            <Link
               href="/bags"
               className="mt-4 md:mt-6 text-[10px] md:text-xs uppercase tracking-widest text-dark-brown/70 hover:text-burgundy transition-colors underline underline-offset-8"
             >
@@ -339,8 +330,8 @@ const Order = () => {
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-brown/60 backdrop-blur-sm transition-opacity">
             <div className="bg-cream w-full max-w-md rounded-2xl shadow-2xl overflow-hidden relative animate-in fade-in zoom-in-95 duration-300">
-              
-              <button 
+
+              <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-4 right-4 p-2 text-dark-brown/50 hover:text-burgundy transition-colors"
               >
@@ -357,18 +348,17 @@ const Order = () => {
                   <p className="font-sans text-sm text-dark-brown whitespace-pre-wrap">{orderText}</p>
                 </div>
 
-                <button 
+                <button
                   onClick={handleCopyText}
-                  className={`w-full py-3 mb-4 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 ${
-                    isCopied 
-                      ? 'bg-green-50 text-green-700 border-green-200' 
+                  className={`w-full py-3 mb-4 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 ${isCopied
+                      ? 'bg-green-50 text-green-700 border-green-200'
                       : 'bg-transparent text-burgundy border-burgundy hover:bg-burgundy/5'
-                  }`}
+                    }`}
                 >
                   {isCopied ? 'Скопійовано ✓' : 'Скопіювати текст'}
                 </button>
 
-                <a 
+                <a
                   href={`https://ig.me/m/${instagramUsername}`}
                   target="_blank"
                   rel="noopener noreferrer"

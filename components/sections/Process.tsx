@@ -34,16 +34,16 @@ const processSteps = [
     step: '05',
     title: 'Пакування та відправка',
     description: 'Готова сумка акуратно упаковується та готується до відправки новій власниці.',
-    image: '/images/process/packaging.jpg'
+    image: '/images/process/packaging.webp'
   }
 ];
 
 const Process = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'center' }, 
+    { loop: true, align: 'center' },
     [
-      Autoplay({ 
-        delay: 4000, 
+      Autoplay({
+        delay: 4000,
         stopOnInteraction: false,
         breakpoints: {
           '(max-width: 767px)': { active: false }
@@ -75,7 +75,7 @@ const Process = () => {
     // Змінено фон на bg-cream та додано scroll-mt для навігації
     <section id="process" className="scroll-mt-28 md:scroll-mt-28 py-12 md:py-20 bg-cream overflow-hidden relative">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full">
-        
+
         {/* ЗАГОЛОВОК СЕКЦІЇ (Компактніший mb-10) */}
         <div className="flex flex-col items-center text-center mb-10 md:mb-16">
           <h2 className="font-playfair text-2xl md:text-5xl text-burgundy font-bold mb-4 md:mb-6 uppercase tracking-widest drop-shadow-sm">
@@ -88,36 +88,36 @@ const Process = () => {
       </div>
 
       {/* ОБГОРТКА ГАЛЕРЕЇ */}
-      <div 
+      <div
         className="relative w-full group/gallery max-w-[1920px] mx-auto"
         onMouseEnter={stopAutoplay}
         onMouseLeave={playAutoplay}
       >
-        
+
         {/* Кнопка Вліво (Десктоп) - Зменшена */}
-        <button 
+        <button
           onClick={scrollPrev}
           className="hidden md:flex absolute left-4 lg:left-12 top-[35%] -translate-y-1/2 z-20 w-12 h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 18l-6-6 6-6"/>
+            <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
 
         {/* EMBLА CAROUSEL */}
         <div className="overflow-hidden w-full" ref={emblaRef}>
           <div className="flex touch-pan-y items-start">
-            
+
             {processSteps.map((step, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 // flex-[0_0_85vw] дозволяє бачити краї сусідніх слайдів на мобілці
                 className="flex-[0_0_85vw] md:flex-[0_0_700px] min-w-0 px-2 md:px-6 group flex flex-col items-center text-center"
               >
                 {/* Фото (Зменшено mb-6) */}
                 <div className="relative w-full aspect-[4/3] md:aspect-video mb-6 overflow-hidden rounded-sm shadow-md cursor-grab active:cursor-grabbing">
-                  <Image 
-                    src={step.image} 
+                  <Image
+                    src={step.image}
                     alt={step.title}
                     fill
                     sizes="(max-width: 768px) 85vw, 700px"
@@ -145,12 +145,12 @@ const Process = () => {
         </div>
 
         {/* Кнопка Вправо */}
-        <button 
+        <button
           onClick={scrollNext}
           className="hidden md:flex absolute right-4 lg:right-12 top-[35%] -translate-y-1/2 z-20 w-12 h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 18l6-6-6-6"/>
+            <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
 

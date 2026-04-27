@@ -2,7 +2,7 @@ import React from 'react';
 import Script from 'next/script';
 
 const InstagramWidget = () => {
-  const instagramHandle = "llixtar";
+  const instagramHandle = "lepoxy.atelier";
   const instagramLink = `https://instagram.com/${instagramHandle}`;
 
   return (
@@ -35,7 +35,7 @@ const InstagramWidget = () => {
           
           {/* Сам віджет із твоїм ID */}
           <div 
-            className="elfsight-app-3dbc75c6-816b-4fe1-923d-0993f89b8de7 w-full" 
+            className="elfsight-app-c955c7c3-f235-4601-a5a5-8772fc5db385 w-full" 
             data-elfsight-app-lazy
           ></div>
 

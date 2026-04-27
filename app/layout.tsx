@@ -10,6 +10,8 @@ const playfair = Playfair_Display({ subsets: ["latin", "cyrillic"], variable: '-
 const prata = Prata({ weight: '400', subsets: ["latin"], variable: '--font-prata' });
 const lexend = Lexend_Peta({ weight: ['400', '700'], subsets: ["latin"], variable: '--font-lexend' });
 
+
+
 export const metadata: Metadata = {
   title: {
     template: '%s | Lépoxy Atelier',

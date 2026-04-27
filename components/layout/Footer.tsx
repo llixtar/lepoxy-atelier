@@ -30,16 +30,16 @@ const Footer = () => {
   return (
     <footer className="bg-burgundy text-cream pt-20 pb-10">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 mb-20 items-start">
-          
+
           {/* 1. ЛОГОТИП */}
           <div className="flex flex-col items-center text-center">
             <div className="relative w-80 h-40 mb-4 -mt-13">
-              <Image 
-                src="/logo/logo_transparent_beige.svg" 
-                alt="Lépoxy Atelier Logo" 
-                fill 
+              <Image
+                src="/logo/logo_transparent_beige.svg"
+                alt="Lépoxy Atelier Logo"
+                fill
                 className="object-contain"
               />
             </div>
@@ -52,7 +52,7 @@ const Footer = () => {
           <div className="flex flex-col items-center text-center">
             <h3 className="font-playfair text-xl font-semibold mb-8 uppercase tracking-widest">Зв’язок</h3>
             <div className="flex flex-col items-center gap-5 font-sans text-sm tracking-wide">
-              <a href="https://instagram.com/llixtar" target="_blank" className="flex items-center gap-3 hover:text-warm-beige transition-colors">
+              <a href="https://instagram.com/lepoxy.atelier" target="_blank" className="flex items-center gap-3 hover:text-warm-beige transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 Instagram
               </a>
@@ -60,7 +60,7 @@ const Footer = () => {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13"></path><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Telegram
               </a>
-              <a href="mailto:hello@lepoxy.com.ua" className="flex items-center gap-3 hover:text-warm-beige transition-colors">
+              <a href="mailto:lepoxyatelier@gmail.com" className="flex items-center gap-3 hover:text-warm-beige transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 lepoxyatelier@gmail.com
               </a>
@@ -83,12 +83,12 @@ const Footer = () => {
             <button onClick={() => setActiveModal('privacy')} className="hover:opacity-100">Політика конфіденційності</button>
             <button onClick={() => setActiveModal('offer')} className="hover:opacity-100">Публічна оферта</button>
           </div>
-          
+
           <div className="relative">
             © {currentYear} Lépoxy Atelier. Всі права захищені.
             {/* СЕКРЕТНИЙ ВХІД: Крапка, яку майже не видно, але вона веде в адмінку */}
-            <Link 
-              href="/admin" 
+            <Link
+              href="/admin"
               className="ml-1 opacity-10 hover:opacity-100 transition-opacity cursor-default"
               title="Admin access"
             >
