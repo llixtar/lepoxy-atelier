@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-[100svh] overflow-hidden bg-cream">
+    <section className="relative w-full h-[160vw] min-[500px]:h-[100svh] overflow-hidden bg-cream">
 
       {/* 1. ФОНОВІ ФОТО */}
       <div className="absolute inset-0 z-0">
@@ -25,57 +25,57 @@ const Hero = () => {
 
       {/* 2. КОНТЕНТ */}
       <div className="relative z-10 w-full h-full">
-        {/* 
-            ДОДАНО: items-center (центрує блоки горизонтально на мобілці)
-            md:items-start (повертає вліво на десктопі)
-        */}
-        <div className="w-full h-full px-[2vw] min-[500px]:pl-8 min-[500px]:pr-0 flex flex-col items-center min-[500px]:items-start justify-start min-[500px]:justify-end pb-6 min-[500px]:pb-1">
-
-          <div className="mt-[31svh] min-[500px]:mt-0 flex flex-col items-center min-[500px]:items-start text-center min-[500px]:text-left min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
-            {/* ЗАГОЛОВОК (Залишається в основному контейнері на своєму місці) */}
-            <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-wider min-[500px]:tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight min-[500px]:whitespace-nowrap mb-1 min-[500px]:mb-2">
-              Lépoxy <span className="font-logo-sub text-2xl min-[500px]:text-2xl inline">Atelier</span>
+        {/* КОНТЕНТ ДЛЯ ДЕСКТОПА (min-width: 500px) */}
+        <div className="hidden min-[500px]:flex w-full h-full px-6 min-[500px]:pl-8 min-[500px]:pr-0 flex-col items-start justify-end pb-6 min-[500px]:pb-1">
+          <div className="min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
+            <h1 className="font-logo-main text-4xl uppercase tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight whitespace-nowrap mb-2">
+              Lépoxy <span className="font-logo-sub text-2xl inline">Atelier</span>
             </h1>
-
-            {/* ПІДЛАДКА (Використовує негативні маржини, щоб розширити фон до країв контейнера, не зачіпаючи заголовок) */}
-            <div className="flex flex-col items-center min-[500px]:items-start gap-1 min-[500px]:bg-cream/40 min-[500px]:backdrop-blur-md min-[500px]:-mx-6 min-[500px]:-mb-3 min-[500px]:px-6 min-[500px]:py-3 min-[500px]:rounded-b-2xl min-[500px]:shadow-sm [@media(min-width:1400px)]:bg-transparent [@media(min-width:1400px)]:backdrop-blur-none [@media(min-width:1400px)]:shadow-none [@media(min-width:1400px)]:p-0 [@media(min-width:1400px)]:m-0">
-              {/* ПЕРША ПІДКЛАДКА (МОБІЛЬНА) */}
-              <div className="bg-cream/60 backdrop-blur-md px-[6vw] py-3 rounded-full shadow-sm min-[500px]:bg-transparent min-[500px]:backdrop-blur-none min-[500px]:p-0 min-[500px]:rounded-none min-[500px]:shadow-none">
-                <p className="font-playfair text-[clamp(12px,3.2vw,16px)] sm:text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap relative z-10">
-                  Сумка, створена природою і руками жінки.
-                </p>
-              </div>
-
-              <div className="mt-[42vw] min-[500px]:mt-2">
-                {/* ДРУГА ПІДКЛАДКА (МОБІЛЬНА) */}
-                <div className="bg-cream/60 backdrop-blur-md px-6 py-3 rounded-2xl min-[500px]:rounded-full shadow-sm min-[500px]:bg-transparent min-[500px]:backdrop-blur-none min-[500px]:p-0 min-[500px]:rounded-none min-[500px]:shadow-none">
-                  <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm min-[890px]:whitespace-nowrap text-center min-[500px]:text-left relative z-10">
-                    Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
-                  </p>
-                </div>
-              </div>
+            <p className="font-playfair text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap">
+              Сумка, створена природою і руками жінки.
+            </p>
+            <div className="mt-2">
+              <p className="font-playfair text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap">
+                Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
+              </p>
             </div>
           </div>
-
-          {/* ГРУПА 3: КНОПКА */}
-          <div className="mt-auto min-[500px]:mt-4 mb-1 min-[500px]:mb-0">
-            <Link
-              href="/#collections"
-              className="
-                relative overflow-hidden inline-block bg-burgundy text-cream px-6 py-3 min-[500px]:px-10 min-[500px]:py-4 
-                uppercase text-[10px] min-[500px]:text-[12px] tracking-[0.2em] font-medium 
-                shadow-xl transition-all duration-300
-                hover:bg-dark-brown hover:-translate-y-1 active:scale-95
-                after:content-[''] after:absolute after:top-0 after:-left-[100%] 
-                after:w-1/2 after:h-full after:bg-gradient-to-r 
-                after:from-transparent after:via-white/20 after:to-transparent 
-                after:skew-x-[-20deg] after:animate-[shine_5s_infinite_linear]
-              "
-            >
+          <div className="mt-4 mb-0">
+            <Link href="/#collections" className="relative overflow-hidden inline-block bg-burgundy text-cream px-10 py-4 uppercase text-[12px] tracking-[0.2em] font-medium shadow-xl transition-all duration-300 hover:bg-dark-brown hover:-translate-y-1 active:scale-95 after:content-[''] after:absolute after:top-0 after:-left-[100%] after:w-1/2 after:h-full after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:skew-x-[-20deg] after:animate-[shine_5s_infinite_linear]">
               Переглянути колекції
             </Link>
           </div>
+        </div>
 
+        {/* КОНТЕНТ ДЛЯ МОБІЛКИ (max-width: 499px) */}
+        <div className="min-[500px]:hidden absolute inset-0">
+          {/* ЗАГОЛОВОК */}
+          <div className="absolute top-[45vw] left-0 w-full text-center">
+            <h1 className="font-logo-main text-3xl uppercase tracking-wider font-bold text-burgundy drop-shadow-sm leading-tight">
+              Lépoxy <span className="font-logo-sub text-2xl inline">Atelier</span>
+            </h1>
+          </div>
+
+          {/* ПЕРШИЙ РЯДОК */}
+          <div className="absolute top-[55vw] left-0 w-full text-center px-4">
+            <p className="font-playfair text-[3.8vw] leading-snug text-black drop-shadow-md whitespace-nowrap">
+              Сумка, створена природою і руками жінки.
+            </p>
+          </div>
+
+          {/* ДРУГИЙ РЯДОК */}
+          <div className="absolute top-[102vw] left-0 w-full text-center px-6">
+            <p className="font-playfair text-[3.8vw] leading-snug text-black drop-shadow-md">
+              Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
+            </p>
+          </div>
+
+          {/* КНОПКА */}
+          <div className="absolute bottom-[5vw] left-0 w-full text-center px-6">
+            <Link href="/#collections" className="relative overflow-hidden inline-block bg-burgundy text-cream px-6 py-3 uppercase text-[10px] tracking-[0.2em] font-medium shadow-xl active:scale-95">
+              Переглянути колекції
+            </Link>
+          </div>
         </div>
       </div>
 
