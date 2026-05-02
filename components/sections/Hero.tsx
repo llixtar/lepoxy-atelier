@@ -71,8 +71,20 @@ const Hero = () => {
           </div>
 
           {/* КНОПКА */}
-          <div className="absolute bottom-[5vw] left-0 w-full text-center px-6">
-            <Link href="/#collections" className="relative overflow-hidden inline-block bg-burgundy text-cream px-6 py-3 uppercase text-[10px] tracking-[0.2em] font-medium shadow-xl active:scale-95">
+          <div className="absolute bottom-[8vw] left-0 w-full text-center px-6 z-20">
+            <Link 
+              href="/#collections" 
+              className="
+                relative overflow-hidden inline-block bg-burgundy text-cream px-8 py-4 
+                uppercase text-[11px] tracking-[0.2em] font-medium 
+                shadow-xl transition-all duration-300
+                hover:bg-dark-brown active:scale-95
+                after:content-[''] after:absolute after:top-0 after:-left-[100%] 
+                after:w-1/2 after:h-full after:bg-gradient-to-r 
+                after:from-transparent after:via-white/20 after:to-transparent 
+                after:skew-x-[-20deg] after:animate-[shine_5s_infinite_linear]
+              "
+            >
               Переглянути колекції
             </Link>
           </div>
