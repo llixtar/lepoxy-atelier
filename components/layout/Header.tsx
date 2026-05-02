@@ -20,11 +20,11 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-cream/80 backdrop-blur-md border-b border-dark-brown/5 h-24 md:h-40">
+      <header className="fixed top-0 left-0 w-full z-50 bg-cream/80 backdrop-blur-md border-b border-dark-brown/5 h-24 min-[890px]:h-40">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between relative">
 
           {/* 1. ЛІВА ЧАСТИНА (Десктоп меню) */}
-          <div className="flex-1 hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
+          <div className="flex-1 hidden min-[890px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
             <Link href="/#collections" className={navLinkStyles}>
               <span>Колекції</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
@@ -35,16 +35,16 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="md:hidden flex-1"></div>
+          <div className="min-[890px]:hidden flex-1"></div>
 
           {/* 2. ЦЕНТР: ЛОГОТИП */}
           <Link href="/" className="flex justify-center items-center px-4">
-            <LogoImage className="h-50 md:h-70" />
+            <LogoImage className="h-50 min-[890px]:h-70" />
           </Link>
 
           {/* 3. ПРАВА ЧАСТИНА (Десктоп меню + Бургер) */}
           <div className="flex-1 flex justify-end items-center">
-            <nav className="hidden md:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
+            <nav className="hidden min-[890px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
               {/* ТУТ БУЛА ПРАВКА: /shop змінено на /bags */}
               <Link href="/bags" className={navLinkStyles}>
                 <span>Сумки</span>
@@ -59,7 +59,7 @@ const Header = () => {
             {/* Бургер (тільки мобайл) */}
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 relative z-[60] outline-none"
+              className="min-[890px]:hidden p-2 relative z-[60] outline-none"
               aria-label="Toggle Menu"
             >
               <div className={`w-6 h-0.5 bg-dark-brown transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1' : 'mb-1.5'}`}></div>
