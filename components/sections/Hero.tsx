@@ -29,24 +29,30 @@ const Hero = () => {
             ДОДАНО: items-center (центрує блоки горизонтально на мобілці)
             md:items-start (повертає вліво на десктопі)
         */}
-        <div className="w-full h-full px-6 min-[500px]:pl-8 min-[500px]:pr-0 flex flex-col items-center min-[500px]:items-start justify-start min-[500px]:justify-end pb-6 min-[500px]:pb-1">
+        <div className="w-full h-full px-[2vw] min-[500px]:pl-8 min-[500px]:pr-0 flex flex-col items-center min-[500px]:items-start justify-start min-[500px]:justify-end pb-6 min-[500px]:pb-1">
 
-          <div className="mt-[31svh] min-[500px]:mt-0 flex flex-col items-center min-[500px]:items-start text-center min-[500px]:text-left max-w-[95vw] min-[500px]:max-w-[600px] min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
+          <div className="mt-[31svh] min-[500px]:mt-0 flex flex-col items-center min-[500px]:items-start text-center min-[500px]:text-left min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
             {/* ЗАГОЛОВОК (Залишається в основному контейнері на своєму місці) */}
-            <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-wider min-[500px]:tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight min-[500px]:whitespace-nowrap mb-4 min-[500px]:mb-2">
+            <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-wider min-[500px]:tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight min-[500px]:whitespace-nowrap mb-1 min-[500px]:mb-2">
               Lépoxy <span className="font-logo-sub text-2xl min-[500px]:text-2xl inline">Atelier</span>
             </h1>
 
             {/* ПІДЛАДКА (Використовує негативні маржини, щоб розширити фон до країв контейнера, не зачіпаючи заголовок) */}
             <div className="flex flex-col items-center min-[500px]:items-start gap-1 min-[500px]:bg-cream/40 min-[500px]:backdrop-blur-md min-[500px]:-mx-6 min-[500px]:-mb-3 min-[500px]:px-6 min-[500px]:py-3 min-[500px]:rounded-b-2xl min-[500px]:shadow-sm [@media(min-width:1400px)]:bg-transparent [@media(min-width:1400px)]:backdrop-blur-none [@media(min-width:1400px)]:shadow-none [@media(min-width:1400px)]:p-0 [@media(min-width:1400px)]:m-0">
-              <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap">
-                Сумка, створена природою і руками жінки.
-              </p>
-
-              <div className="mt-[22svh] min-[500px]:mt-2">
-                <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm min-[890px]:whitespace-nowrap text-center min-[500px]:text-left">
-                  Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
+              {/* ПЕРША ПІДКЛАДКА (МОБІЛЬНА) */}
+              <div className="bg-cream/60 backdrop-blur-md px-[6vw] py-3 rounded-full shadow-sm min-[500px]:bg-transparent min-[500px]:backdrop-blur-none min-[500px]:p-0 min-[500px]:rounded-none min-[500px]:shadow-none">
+                <p className="font-playfair text-[clamp(12px,3.2vw,16px)] sm:text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap relative z-10">
+                  Сумка, створена природою і руками жінки.
                 </p>
+              </div>
+
+              <div className="mt-[42vw] min-[500px]:mt-2">
+                {/* ДРУГА ПІДКЛАДКА (МОБІЛЬНА) */}
+                <div className="bg-cream/60 backdrop-blur-md px-6 py-3 rounded-2xl min-[500px]:rounded-full shadow-sm min-[500px]:bg-transparent min-[500px]:backdrop-blur-none min-[500px]:p-0 min-[500px]:rounded-none min-[500px]:shadow-none">
+                  <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm min-[890px]:whitespace-nowrap text-center min-[500px]:text-left relative z-10">
+                    Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
