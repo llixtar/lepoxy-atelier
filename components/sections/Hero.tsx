@@ -31,7 +31,7 @@ const Hero = () => {
         */}
         <div className="w-full h-full px-6 min-[500px]:pl-8 min-[500px]:pr-0 flex flex-col items-center min-[500px]:items-start justify-start min-[500px]:justify-end pb-6 min-[500px]:pb-1">
 
-          <div className="mt-[30svh] min-[500px]:mt-0 flex flex-col items-center min-[500px]:items-start text-center min-[500px]:text-left min-[500px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
+          <div className="mt-[31svh] min-[500px]:mt-0 flex flex-col items-center min-[500px]:items-start text-center min-[500px]:text-left max-w-[95vw] min-[500px]:max-w-[600px] min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
             {/* ЗАГОЛОВОК (Залишається в основному контейнері на своєму місці) */}
             <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-wider min-[500px]:tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight min-[500px]:whitespace-nowrap mb-4 min-[500px]:mb-2">
               Lépoxy <span className="font-logo-sub text-2xl min-[500px]:text-2xl inline">Atelier</span>
@@ -39,12 +39,12 @@ const Hero = () => {
 
             {/* ПІДЛАДКА (Використовує негативні маржини, щоб розширити фон до країв контейнера, не зачіпаючи заголовок) */}
             <div className="flex flex-col items-center min-[500px]:items-start gap-1 min-[500px]:bg-cream/40 min-[500px]:backdrop-blur-md min-[500px]:-mx-6 min-[500px]:-mb-3 min-[500px]:px-6 min-[500px]:py-3 min-[500px]:rounded-b-2xl min-[500px]:shadow-sm [@media(min-width:1400px)]:bg-transparent [@media(min-width:1400px)]:backdrop-blur-none [@media(min-width:1400px)]:shadow-none [@media(min-width:1400px)]:p-0 [@media(min-width:1400px)]:m-0">
-              <p className="font-playfair text-[4.2vw] sm:text-lg min-[500px]:text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap">
+              <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm whitespace-nowrap">
                 Сумка, створена природою і руками жінки.
               </p>
 
-              <div className="mt-[205px] min-[500px]:mt-2">
-                <p className="font-playfair text-[4.2vw] sm:text-lg min-[500px]:text-xl leading-snug text-black drop-shadow-sm min-[500px]:whitespace-nowrap">
+              <div className="mt-[22svh] min-[500px]:mt-2">
+                <p className="font-playfair text-base min-[890px]:text-xl leading-snug text-black drop-shadow-sm min-[890px]:whitespace-nowrap text-center min-[500px]:text-left">
                   Натуральна шкіра та справжні квіти, збережені в епоксидній смолі.
                 </p>
               </div>
