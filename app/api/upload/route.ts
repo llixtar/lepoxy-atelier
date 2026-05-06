@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from "@/lib/auth";
+import { getToken } from 'next-auth/jwt';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const token = await getToken({ req: req as any });
     
-    if (!session || (session.user as any).role !== 'admin') {
+    console.log('UPLOAD API DEBUG -> Token:', token);
+
+    if (!token || token.role !== 'admin') {
       return NextResponse.json({ error: 'Немає доступу' }, { status: 401 });
     }
 

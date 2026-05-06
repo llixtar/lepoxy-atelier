@@ -1,10 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function AdminDashboard() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [activeTab, setActiveTab] = useState('bags');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -12,8 +16,7 @@ export default function AdminDashboard() {
   const [bagData, setBagData] = useState({
     name: '', price: '', model: '', dimensions: '', collection: '', color: '', description: '',
   });
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [bagImages, setBagImages] = useState<{ id: string; url: string; file?: File }[]>([]);
   const [editingBagId, setEditingBagId] = useState<string | null>(null);
   const [bags, setBags] = useState<any[]>([]);
   const [isLoadingBags, setIsLoadingBags] = useState(true);
@@ -27,6 +30,33 @@ export default function AdminDashboard() {
   const [reviewData, setReviewData] = useState({ authorName: '', text: '' });
   const [reviewImageFile, setReviewImageFile] = useState<File | null>(null);
   const [reviewImagePreview, setReviewImagePreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/admin/login');
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    if (session) {
+      fetchBags();
+      fetchReviews();
+    }
+  }, [session]);
+
+  if (status === 'loading') {
+    return (
+      <div className="fixed inset-0 bg-[#0a0a0a] flex items-center justify-center">
+        <div className="text-yellow-500 text-xl font-bold animate-pulse">Завантаження адмін-панелі...</div>
+      </div>
+    );
+  }
+
+  if (!session || (session.user as any).role !== 'admin') {
+    return null;
+  }
+
+
 
   // ================= FETCH ДАНИХ =================
   const fetchBags = async () => {
@@ -53,50 +83,63 @@ export default function AdminDashboard() {
     }
   };
 
-  useEffect(() => {
-    fetchBags();
-    fetchReviews();
-  }, []);
-
-  // ================= ЛОГІКА СУМОК (залишена без змін) =================
+  // ================= ЛОГІКА СУМОК =================
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setImageFiles((prev) => [...prev, ...files]);
-      const previews = files.map((file) => URL.createObjectURL(file));
-      setImagePreviews((prev) => [...prev, ...previews]);
+      const newImages = files.map((file) => ({
+        id: Math.random().toString(36).substring(2),
+        url: URL.createObjectURL(file),
+        file
+      }));
+      setBagImages((prev) => [...prev, ...newImages]);
     }
   };
 
-  const removeImage = (index: number) => {
-    setImageFiles((prev) => prev.filter((_, i) => i !== index));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  const removeImage = (id: string) => {
+    setBagImages((prev) => prev.filter((img) => img.id !== id));
+  };
+
+  const setMainImage = (id: string) => {
+    setBagImages((prev) => {
+      const index = prev.findIndex(img => img.id === id);
+      if (index === -1) return prev;
+      const newArr = [...prev];
+      const [item] = newArr.splice(index, 1);
+      newArr.unshift(item);
+      return newArr;
+    });
   };
 
   const resetBagForm = () => {
     setBagData({ name: '', price: '', model: '', dimensions: '', collection: '', color: '', description: '' });
-    setImageFiles([]);
-    setImagePreviews([]);
+    setBagImages([]);
     setEditingBagId(null);
   };
 
   const handleAddBag = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (bagImages.length === 0) {
+      alert('Додай хоча б одне фото!');
+      return;
+    }
     setIsSubmitting(true);
     try {
-      const existingUrls = imagePreviews.filter(url => !url.startsWith('blob:'));
-      const newUrls: string[] = [];
+      const allImageUrls: string[] = [];
 
-      for (const file of imageFiles) {
-        const formData = new FormData();
-        formData.append('file', file);
-        const uploadResponse = await fetch('/api/upload', { method: 'POST', body: formData });
-        if (!uploadResponse.ok) throw new Error('Помилка при завантаженні нового фото');
-        const { url } = await uploadResponse.json();
-        newUrls.push(url);
+      for (const img of bagImages) {
+        if (img.file) {
+          const formData = new FormData();
+          formData.append('file', img.file);
+          const uploadResponse = await fetch('/api/upload', { method: 'POST', body: formData });
+          if (!uploadResponse.ok) throw new Error('Помилка при завантаженні нового фото');
+          const { url } = await uploadResponse.json();
+          allImageUrls.push(url);
+        } else {
+          allImageUrls.push(img.url);
+        }
       }
 
-      const allImageUrls = [...existingUrls, ...newUrls];
       const method = editingBagId ? 'PUT' : 'POST';
       const bodyData = editingBagId
         ? { ...bagData, id: editingBagId, images: allImageUrls }
@@ -138,8 +181,11 @@ export default function AdminDashboard() {
       dimensions: bag.dimensions, collection: bag.collection,
       color: bag.color, description: bag.description,
     });
-    setImageFiles([]);
-    setImagePreviews(bag.images || []);
+    const existingImages = (bag.images || []).map((url: string) => ({
+      id: Math.random().toString(36).substring(2),
+      url,
+    }));
+    setBagImages(existingImages);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -309,12 +355,24 @@ export default function AdminDashboard() {
                 <label className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-4">Фотографії</label>
                 <input type="file" multiple accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2.5 file:px-5 file:rounded-md file:border-0 file:bg-[#1f1f1f] file:text-neutral-300 cursor-pointer" />
 
-                {imagePreviews.length > 0 && (
+                {bagImages.length > 0 && (
                   <div className="mt-6 flex flex-wrap gap-4">
-                    {imagePreviews.map((src, index) => (
-                      <div key={index} className="relative w-28 h-28 border border-neutral-700 rounded-md overflow-hidden group bg-[#0a0a0a]">
-                        <img src={src} alt="Preview" className="w-full h-full object-cover opacity-80" />
-                        <button type="button" onClick={() => removeImage(index)} className="absolute top-1.5 right-1.5 bg-black/70 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm">✕</button>
+                    {bagImages.map((img, index) => (
+                      <div key={img.id} className={`relative w-32 h-40 border ${index === 0 ? 'border-yellow-500' : 'border-neutral-700'} rounded-md overflow-hidden group bg-[#0a0a0a] flex flex-col`}>
+                        <div className="relative w-full h-28">
+                          <img src={img.url} alt="Preview" className="w-full h-full object-cover opacity-80" />
+                          {index === 0 && (
+                            <div className="absolute top-0 left-0 bg-yellow-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-br-sm uppercase">Обкладинка</div>
+                          )}
+                          <button type="button" onClick={() => removeImage(img.id)} className="absolute top-1 right-1 bg-black/70 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors">✕</button>
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => setMainImage(img.id)}
+                          className={`flex-grow text-[10px] font-bold uppercase transition-colors ${index === 0 ? 'bg-yellow-500 text-black' : 'bg-[#1f1f1f] text-neutral-400 hover:text-white'}`}
+                        >
+                          {index === 0 ? 'Головна' : 'Зробити головною'}
+                        </button>
                       </div>
                     ))}
                   </div>

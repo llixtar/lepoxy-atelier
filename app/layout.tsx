@@ -4,6 +4,7 @@ import Script from "next/script"; // ДОДАЛИ ІМПОРТ SCRIPT
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import NextAuthProvider from "@/components/providers/NextAuthProvider";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ["latin", "cyrillic"], variable: '--font-playfair' });
@@ -85,11 +86,13 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Header />
-        <main> 
-          {children}
-        </main>
-        <Footer />
+        <NextAuthProvider>
+          <Header />
+          <main> 
+            {children}
+          </main>
+          <Footer />
+        </NextAuthProvider>
         
       </body>
     </html>

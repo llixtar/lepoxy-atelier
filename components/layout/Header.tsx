@@ -2,10 +2,40 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#')) {
+      if (pathname === '/') {
+        e.preventDefault();
+        const targetId = href.substring(2);
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          window.history.pushState(null, '', href);
+        }
+      }
+    }
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   const LogoImage = ({ className }: { className: string }) => (
     <img
@@ -20,37 +50,37 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-cream/80 backdrop-blur-md border-b border-dark-brown/5 h-24 min-[890px]:h-40">
+      <header className="fixed top-0 left-0 w-full z-50 bg-cream/80 backdrop-blur-md border-b border-dark-brown/5 h-24 min-[1020px]:h-40">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between relative">
 
           {/* 1. ЛІВА ЧАСТИНА (Десктоп меню) */}
-          <div className="flex-1 hidden min-[890px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
-            <Link href="/#collections" className={navLinkStyles}>
+          <div className="flex-1 hidden min-[1020px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
+            <Link href="/#collections" className={navLinkStyles} onClick={(e) => handleNavClick(e, '/#collections')}>
               <span>Колекції</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
             </Link>
-            <Link href="/#process" className={navLinkStyles}>
+            <Link href="/#process" className={navLinkStyles} onClick={(e) => handleNavClick(e, '/#process')}>
               <span>Ательє</span>
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
             </Link>
           </div>
 
-          <div className="min-[890px]:hidden flex-1"></div>
+          <div className="min-[1020px]:hidden flex-1"></div>
 
           {/* 2. ЦЕНТР: ЛОГОТИП */}
-          <Link href="/" className="flex justify-center items-center px-4">
-            <LogoImage className="h-50 min-[890px]:h-70" />
+          <Link href="/" className="flex justify-center items-center px-4" onClick={handleLogoClick}>
+            <LogoImage className="h-50 min-[1020px]:h-70" />
           </Link>
 
           {/* 3. ПРАВА ЧАСТИНА (Десктоп меню + Бургер) */}
           <div className="flex-1 flex justify-end items-center">
-            <nav className="hidden min-[890px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
+            <nav className="hidden min-[1020px]:flex space-x-10 text-[16px] uppercase tracking-[0.2em] font-semibold text-dark-brown">
               {/* ТУТ БУЛА ПРАВКА: /shop змінено на /bags */}
-              <Link href="/bags" className={navLinkStyles}>
-                <span>Сумки</span>
+              <Link href="/bags" className={navLinkStyles} onClick={(e) => handleNavClick(e, '/bags')}>
+                <span>В НАЯВНОСТІ</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
               </Link>
-              <Link href="/#order" className={navLinkStyles}>
+              <Link href="/#order" className={navLinkStyles} onClick={(e) => handleNavClick(e, '/#order')}>
                 <span>Як замовити</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-burgundy transition-all duration-500 group-hover:w-full"></span>
               </Link>
@@ -59,7 +89,7 @@ const Header = () => {
             {/* Бургер (тільки мобайл) */}
             <button
               onClick={toggleMenu}
-              className="min-[890px]:hidden p-2 relative z-[60] outline-none"
+              className="min-[1020px]:hidden p-2 relative z-[60] outline-none"
               aria-label="Toggle Menu"
             >
               <div className={`w-6 h-0.5 bg-dark-brown transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1' : 'mb-1.5'}`}></div>
@@ -83,7 +113,7 @@ const Header = () => {
 
         <div className="flex flex-col h-full pt+10">
           {/* Лого тепер зверху, на рівні хрестика завдяки pt-8 */}
-          <Link href="/" onClick={() => setIsOpen(false)}>
+          <Link href="/" onClick={handleLogoClick}>
             <div className="w-full flex justify-center">
               <LogoImage className="h-50" />
             </div>
@@ -92,14 +122,14 @@ const Header = () => {
           <nav className="flex-grow flex flex-col items-center space-y-10 text-base uppercase tracking-[0.3em] font-semibold text-dark-brown">
             {[
               { name: 'Колекції', href: '/#collections' },
-              { name: 'Ательє', href: '/#atelier' },
+              { name: 'Ательє', href: '/#process' },
               { name: 'Сумки', href: '/bags' }, // ТУТ БУЛА ПРАВКА: /shop змінено на /bags
               { name: 'Як замовити', href: '/#order' },
             ].map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                onClick={toggleMenu}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="relative group transition-all duration-300 hover:text-burgundy hover:translate-x-2 active:scale-95"
               >
                 <span>{item.name}</span>

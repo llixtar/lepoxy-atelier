@@ -1,14 +1,29 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 
 const ComparisonSlider = () => {
   // Стейт для позиції повзунка (від 0 до 100). Починаємо з 50% (рівно посередині)
   const [sliderPosition, setSliderPosition] = useState(50);
 
-  const handleDrag = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSliderPosition(Number(e.target.value));
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMove = (clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    setSliderPosition((x / rect.width) * 100);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    handleMove(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (e.buttons !== 1) return; // Only move if mouse button is pressed or touch is active
+    handleMove(e.clientX);
   };
 
   return (
@@ -26,7 +41,12 @@ const ComparisonSlider = () => {
         </div>
 
         {/* Контейнер слайдера */}
-        <div className="relative w-full aspect-[4/3] md:aspect-video rounded-xl md:rounded-2xl overflow-hidden shadow-2xl group border-[6px] md:border-[12px] border-white select-none">
+        <div 
+          ref={containerRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          className="relative w-full aspect-[4/3] md:aspect-video rounded-xl md:rounded-2xl overflow-hidden shadow-2xl group border-[6px] md:border-[12px] border-white select-none touch-none cursor-ew-resize"
+        >
           
           {/* Нижнє фото (Світла сумка) */}
           <div className="absolute inset-0 z-0">
@@ -34,9 +54,10 @@ const ComparisonSlider = () => {
               src="/images/bag-light.jpg"
               alt="Світла сумка Lépoxy Atelier"
               fill
-              className="object-cover object-center"
+              className="object-cover object-center select-none"
               sizes="(max-width: 1200px) 100vw, 1200px"
               priority
+              onDragStart={(e) => e.preventDefault()}
             />
           </div>
 
@@ -50,9 +71,10 @@ const ComparisonSlider = () => {
               src="/images/bag-dark.jpg"
               alt="Темна сумка Lépoxy Atelier"
               fill
-              className="object-cover object-center"
+              className="object-cover object-center select-none"
               sizes="(max-width: 1200px) 100vw, 1200px"
               priority
+              onDragStart={(e) => e.preventDefault()}
             />
           </div>
 
@@ -74,16 +96,7 @@ const ComparisonSlider = () => {
             </div>
           </div>
 
-          {/* Невидимий повзунок, який збирає всі кліки та рухи пальцем */}
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={sliderPosition}
-            onChange={handleDrag}
-            className="absolute inset-0 z-30 w-full h-full opacity-0 cursor-ew-resize m-0 p-0 touch-pan-y"
-            aria-label="Порівняння світлої та темної сумки"
-          />
+          {/* Видалили input range, бо тепер обробляємо pointer events на самому контейнері для кращої чутливості */}
 
         </div>
         

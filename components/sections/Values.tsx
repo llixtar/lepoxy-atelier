@@ -34,7 +34,7 @@ const Values = () => {
           
           {valuesData.map((item, index) => (
             <div key={index} className="flex flex-col items-center text-center group">
-              <div className="relative w-12 h-12 md:w-16 md:h-16 mb-5 md:mb-8 transform transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-2">
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mb-5 md:mb-8 transform transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-2">
                 <Image 
                   src={item.icon} 
                   alt={item.title} 

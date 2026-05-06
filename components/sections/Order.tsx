@@ -112,8 +112,8 @@ const Order = () => {
                     key={model.id}
                     onClick={() => setSelectedModel(model.id)}
                     className={`group relative flex flex-col items-center p-2 md:p-4 bg-white rounded-xl border-2 transition-all duration-300 ${selectedModel === model.id
-                        ? 'border-burgundy shadow-lg scale-105'
-                        : 'border-transparent shadow-sm hover:shadow-md hover:border-warm-beige'
+                      ? 'border-burgundy shadow-lg scale-105'
+                      : 'border-transparent shadow-sm hover:shadow-md hover:border-warm-beige'
                       }`}
                   >
                     <div className="relative w-full aspect-square mb-2 md:mb-4 overflow-hidden">
@@ -154,8 +154,8 @@ const Order = () => {
                   >
                     <div
                       className={`w-10 h-10 md:w-16 md:h-16 rounded-full transition-all duration-300 ${selectedColor === color.id
-                          ? 'ring-2 md:ring-4 ring-offset-2 md:ring-offset-4 ring-burgundy'
-                          : 'ring-1 ring-offset-1 md:ring-offset-2 ring-transparent group-hover:ring-warm-beige'
+                        ? 'ring-2 md:ring-4 ring-offset-2 md:ring-offset-4 ring-burgundy'
+                        : 'ring-1 ring-offset-1 md:ring-offset-2 ring-transparent group-hover:ring-warm-beige'
                         }`}
                       style={{ backgroundColor: color.hex, borderColor: color.border, borderWidth: '1px' }}
                     >
@@ -197,8 +197,8 @@ const Order = () => {
                     key={mood}
                     onClick={() => setSelectedMood(mood)}
                     className={`px-3 py-1.5 rounded-full border border-burgundy/20 font-sans text-[11px] transition-all duration-300 hover:scale-105 ${selectedMood === mood
-                        ? 'bg-burgundy text-cream shadow-md border-burgundy'
-                        : 'bg-transparent text-dark-brown hover:bg-warm-beige'
+                      ? 'bg-burgundy text-cream shadow-md border-burgundy'
+                      : 'bg-transparent text-dark-brown hover:bg-warm-beige'
                       }`}
                   >
                     {mood} {selectedMood === mood && '✓'}
@@ -213,8 +213,8 @@ const Order = () => {
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
                       className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
-                          : 'bg-transparent text-dark-brown hover:bg-warm-beige'
+                        ? 'bg-burgundy text-cream shadow-md border-burgundy'
+                        : 'bg-transparent text-dark-brown hover:bg-warm-beige'
                         }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
@@ -227,8 +227,8 @@ const Order = () => {
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
                       className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
-                          : 'bg-transparent text-dark-brown hover:bg-warm-beige'
+                        ? 'bg-burgundy text-cream shadow-md border-burgundy'
+                        : 'bg-transparent text-dark-brown hover:bg-warm-beige'
                         }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
@@ -241,8 +241,8 @@ const Order = () => {
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
                       className={`px-5 py-2.5 rounded-full border border-burgundy/20 font-sans text-base transition-all duration-300 hover:scale-105 ${selectedMood === mood
-                          ? 'bg-burgundy text-cream shadow-md border-burgundy'
-                          : 'bg-transparent text-dark-brown hover:bg-warm-beige'
+                        ? 'bg-burgundy text-cream shadow-md border-burgundy'
+                        : 'bg-transparent text-dark-brown hover:bg-warm-beige'
                         }`}
                     >
                       {mood} {selectedMood === mood && '✓'}
@@ -251,8 +251,8 @@ const Order = () => {
                 </div>
               </div>
 
-              <p className="text-[10px] md:text-xs text-dark-brown/60 font-medium tracking-wide ml-9 md:ml-0 md:text-center">
-                * Час створення сумки: 10–14 днів
+              <p className="text-[11px] md:text-sm text-dark-brown/60 font-medium tracking-wide text-center mx-auto leading-relaxed max-w-2xl">
+                * Час створення сумки: 10–14 днів. Орієнтовна вартість: від 4 500 грн (еко-шкіра) та від 5 500 грн (натуральна шкіра) залежно від моделі та дизайну.
               </p>
             </div>
 
@@ -299,8 +299,8 @@ const Order = () => {
               onClick={handleOrderSubmit}
               disabled={!isFormComplete}
               className={`flex items-center justify-center w-full max-w-md py-3 md:py-4 uppercase text-[11px] md:text-[13px] tracking-[0.2em] font-bold transition-all duration-300 shadow-lg ${isFormComplete
-                  ? 'bg-burgundy text-cream hover:bg-dark-brown hover:scale-[1.02] active:scale-95 cursor-pointer'
-                  : 'bg-dark-brown/10 text-dark-brown/40 cursor-not-allowed'
+                ? 'bg-burgundy text-cream hover:bg-dark-brown hover:scale-[1.02] active:scale-95 cursor-pointer'
+                : 'bg-dark-brown/10 text-dark-brown/40 cursor-not-allowed'
                 }`}
             >
               Перейти до замовлення
@@ -351,8 +351,8 @@ const Order = () => {
                 <button
                   onClick={handleCopyText}
                   className={`w-full py-3 mb-4 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-300 border-2 ${isCopied
-                      ? 'bg-green-50 text-green-700 border-green-200'
-                      : 'bg-transparent text-burgundy border-burgundy hover:bg-burgundy/5'
+                    ? 'bg-green-50 text-green-700 border-green-200'
+                    : 'bg-transparent text-burgundy border-burgundy hover:bg-burgundy/5'
                     }`}
                 >
                   {isCopied ? 'Скопійовано ✓' : 'Скопіювати текст'}

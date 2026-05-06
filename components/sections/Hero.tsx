@@ -27,7 +27,7 @@ const Hero = () => {
       <div className="relative z-10 w-full h-full">
         {/* КОНТЕНТ ДЛЯ ДЕСКТОПА (min-width: 500px) */}
         <div className="hidden min-[500px]:flex w-full h-full px-6 min-[500px]:pl-8 min-[500px]:pr-0 flex-col items-start justify-end pb-6 min-[500px]:pb-1">
-          <div className="min-[890px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
+          <div className="min-[1020px]:max-w-fit min-[500px]:pt-9 min-[500px]:px-6 min-[500px]:pb-3 min-[500px]:rounded-2xl [@media(min-width:1400px)]:p-0">
             <h1 className="font-logo-main text-4xl uppercase tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight whitespace-nowrap mb-2">
               Lépoxy <span className="font-logo-sub text-2xl inline">Atelier</span>
             </h1>
