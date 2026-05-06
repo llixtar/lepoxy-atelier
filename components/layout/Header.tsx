@@ -123,7 +123,7 @@ const Header = () => {
             {[
               { name: 'Колекції', href: '/#collections' },
               { name: 'Ательє', href: '/#process' },
-              { name: 'Сумки', href: '/bags' }, // ТУТ БУЛА ПРАВКА: /shop змінено на /bags
+              { name: 'В наявності', href: '/bags' }, // ТУТ БУЛА ПРАВКА: /shop змінено на /bags
               { name: 'Як замовити', href: '/#order' },
             ].map((item) => (
               <Link

@@ -3,18 +3,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import useEmblaCarousel from 'embla-carousel-react';
-
 const AvailableBags = () => {
   // Стейт для сумок з бази
   const [bags, setBags] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  // Вимкнули loop, щоб при малій кількості карток вони не дублювалися
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
-
-  // Стейт для перевірки, чи потрібен скрол
-  const [isScrollable, setIsScrollable] = useState(false);
 
   // Завантажуємо сумки з API
   useEffect(() => {
@@ -36,29 +28,6 @@ const AvailableBags = () => {
 
     fetchBags();
   }, []);
-
-  // Слідкуємо за розміром екрана та кількістю карток
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const checkScrollable = () => {
-      // Якщо можна гортати хоч кудись (вперед або назад) — значить карусель активна
-      setIsScrollable(emblaApi.canScrollNext() || emblaApi.canScrollPrev());
-    };
-
-    checkScrollable(); // Перевіряємо при старті
-    emblaApi.on('reInit', checkScrollable); // Перевіряємо при зміні даних
-    emblaApi.on('resize', checkScrollable); // Перевіряємо при повороті екрана/зміні вікна
-  }, [emblaApi, bags]); // Додали bags у залежності, щоб перевіряти скрол після завантаження даних
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
   const telegramUsername = "llixtar";
 
   return (
@@ -77,43 +46,27 @@ const AvailableBags = () => {
         </div>
       </div>
 
-      {/* ОБГОРТКА ГАЛЕРЕЇ */}
-      <div className="relative w-full group/gallery max-w-[1920px] mx-auto px-4 md:px-12">
-
-        {/* Стрілка Вліво */}
-        {isScrollable && (
-          <button
-            onClick={scrollPrev}
-            className="hidden md:flex absolute left-4 lg:left-8 top-[40%] -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-          </button>
-        )}
-
-        {/* EMBLA CAROUSEL */}
-        <div className="overflow-hidden w-full" ref={emblaRef}>
-          {isLoading ? (
-            // Скелетон або індикатор завантаження
-            <div className="flex justify-center py-12">
-              <div className="text-burgundy animate-pulse font-semibold tracking-widest uppercase text-sm">
-                Завантаження сумок...
-              </div>
+      {/* ГАЛЕРЕЯ (СІТКА) */}
+      <div className="max-w-[1440px] mx-auto px-4 md:px-12">
+        {isLoading ? (
+          <div className="flex justify-center py-12">
+            <div className="text-burgundy animate-pulse font-semibold tracking-widest uppercase text-sm">
+              Завантаження сумок...
             </div>
-          ) : bags.length === 0 ? (
-            // Повідомлення, якщо сумок немає
-            <div className="flex justify-center py-12">
-              <div className="text-dark-brown/60 font-medium text-center">
-                Наразі всі сумки з наявності розпродані.
-              </div>
+          </div>
+        ) : bags.length === 0 ? (
+          <div className="flex justify-center py-12">
+            <div className="text-dark-brown/60 font-medium text-center">
+              Наразі всі сумки з наявності розпродані.
             </div>
-          ) : (
-            // Динамічний клас: якщо скролу немає, центруємо (justify-center)
-            <div className={`flex touch-pan-y py-2 md:py-4 ${!isScrollable ? 'justify-center' : ''}`}>
-              {bags.map((bag) => (
-                <div
-                  key={bag.id}
-                  className="flex-[0_0_80%] sm:flex-[0_0_45%] lg:flex-[0_0_28%] xl:flex-[0_0_24%] min-w-0 pr-4 md:pr-6 group"
-                >
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-8 md:gap-x-8 md:gap-y-12">
+            {bags.map((bag) => (
+              <div
+                key={bag.id}
+                className="w-[calc(50%-6px)] sm:w-[calc(50%-8px)] md:w-[300px] lg:w-[320px] shrink-0 group"
+              >
                   <div className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-dark-brown/5 hover:border-burgundy/30 h-full">
 
                     {/* ФОТО БЕЗ ОБРІЗАННЯ КРАЇВ */}
@@ -137,9 +90,9 @@ const AvailableBags = () => {
                     </div>
 
                     {/* ІНФОРМАЦІЯ */}
-                    <div className="p-4 md:p-5 flex flex-col flex-grow relative z-10 bg-white">
-                      <h3 className="font-playfair text-lg md:text-xl font-bold text-dark-brown mb-1 md:mb-2">{bag.name}</h3>
-                      <p className="font-sans text-base md:text-lg text-burgundy font-semibold mb-4">
+                    <div className="p-3 md:p-5 flex flex-col flex-grow relative z-10 bg-white">
+                      <h3 className="font-playfair text-sm md:text-xl font-bold text-dark-brown mb-1 md:mb-2 line-clamp-1 md:line-clamp-none">{bag.name}</h3>
+                      <p className="font-sans text-sm md:text-lg text-burgundy font-semibold mb-3 md:mb-4">
                         {bag.price} ₴
                       </p>
 
@@ -147,29 +100,17 @@ const AvailableBags = () => {
                         href={`https://t.me/${telegramUsername}?text=${encodeURIComponent(`Доброго дня! Хочу придбати сумку з наявності:\nМодель: ${bag.name}\nЦіна: ${bag.price} ₴`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-auto w-full py-2.5 md:py-3 border border-burgundy text-burgundy text-center uppercase text-[10px] md:text-[11px] font-bold tracking-[0.15em] transition-all duration-300 hover:bg-burgundy hover:text-cream active:scale-95 rounded-sm"
+                        className="mt-auto w-full py-2 md:py-3 border border-burgundy text-burgundy text-center uppercase text-[9px] md:text-[11px] font-bold tracking-[0.1em] md:tracking-[0.15em] transition-all duration-300 hover:bg-burgundy hover:text-cream active:scale-95 rounded-sm"
                       >
-                        Купити зараз
+                        Купити
                       </a>
                     </div>
 
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Стрілка Вправо */}
-        {isScrollable && (
-          <button
-            onClick={scrollNext}
-            className="hidden md:flex absolute right-4 lg:right-8 top-[40%] -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-cream/90 backdrop-blur shadow-lg rounded-full items-center justify-center text-dark-brown hover:bg-burgundy hover:text-cream hover:scale-105 transition-all duration-300 opacity-0 group-hover/gallery:opacity-100"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
-          </button>
+              </div>
+            ))}
+          </div>
         )}
-
       </div>
 
       {/* КНОПКА ПЕРЕХОДУ НА СТОРІНКУ */}
