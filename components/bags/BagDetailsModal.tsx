@@ -19,7 +19,7 @@ const BagDetailsModal = ({ bag, onClose }: Props) => {
     }
   }, [bag]);
 
-  const telegramLink = `https://t.me/llixtar?text=${encodeURIComponent(
+  const telegramLink = `https://t.me/lepoxyatelier?text=${encodeURIComponent(
     `Вітаю! Мене зацікавила сумка ${bag.name} (${bag.price} ₴). Чи є вона в наявності?`
   )}`;
 

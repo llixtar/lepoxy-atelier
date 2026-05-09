@@ -37,7 +37,7 @@ const Order = () => {
 
   const isFormComplete = selectedModel && selectedColor && selectedMood && selectedMessenger;
 
-  const telegramUsername = "llixtar";
+  const telegramUsername = "lepoxyatelier";
   const instagramUsername = "lepoxy.atelier";
 
   const orderText = `Доброго дня, хочу замовити таку сумку:\nМодель: ${selectedModel}\nКолір шкіри: ${selectedColor}\nДизайн епоксидних вставок: ${selectedMood}`;

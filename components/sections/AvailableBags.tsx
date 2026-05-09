@@ -28,7 +28,7 @@ const AvailableBags = () => {
 
     fetchBags();
   }, []);
-  const telegramUsername = "llixtar";
+  const telegramUsername = "lepoxyatelier";
 
   return (
     <section id="available" className="py-12 md:py-16 bg-cream overflow-hidden">
