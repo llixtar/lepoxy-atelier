@@ -49,11 +49,11 @@ const Hero = () => {
       </div>
 
       {/* 3. КОНТЕНТ ДЛЯ МОБІЛКИ */}
-      <div className="relative z-20 md:hidden w-full h-full flex flex-col justify-end items-center text-center px-6 pb-12">
+      <div className="relative z-20 md:hidden w-full h-full flex flex-col justify-end items-center text-center px-6 pb-6">
         <div className="mb-8">
-          <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight mb-3">
+          {/* <h1 className="font-logo-main text-3xl min-[500px]:text-4xl uppercase tracking-[0.2em] font-bold text-burgundy drop-shadow-sm leading-tight mb-3">
             Lépoxy <span className="font-logo-sub text-2xl min-[500px]:text-3xl inline">Atelier</span>
-          </h1>
+          </h1> */}
           <p className="font-sans uppercase tracking-[0.2em] text-[10px] min-[500px]:text-xs font-medium text-black/80 drop-shadow-sm">
             Натуральна шкіра та справжні квіти,<br /> збережені в епоксидній смолі.
           </p>
